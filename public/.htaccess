@@ -8,6 +8,11 @@
 # Turning on the rewrite engine is necessary for the following rules and
 # features. "+FollowSymLinks" must be enabled for this to work symbolically.
 
+Header add Access-Control-Allow-Origin "*"
+Header add Access-Control-Allow-Methods "PUT, DELETE, POST, GET, OPTION"
+Header add Access-Control-Allow-Headers "X-Requested-With, Origin, X-Csrftoken, Content-Type, Accept"
+Header add Connection "keep-alive"
+
 <IfModule mod_rewrite.c>
 	Options +FollowSymLinks
 	RewriteEngine On

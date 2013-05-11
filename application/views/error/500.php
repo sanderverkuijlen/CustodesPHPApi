@@ -115,10 +115,6 @@
 				We're really sorry about this, and will work hard to get this resolved as
 				soon as possible.
 			</p>
-
-			<p>
-				Perhaps you would like to go to our <?php echo HTML::link('/', 'home page'); ?>?
-			</p>
 		</div>
 	</div>
 </body>

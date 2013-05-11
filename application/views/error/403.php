@@ -104,16 +104,14 @@
 
 			<h1><?php echo $messages[mt_rand(0, 2)]; ?></h1>
 
-			<h2>Server Error: 404 (Not Found)</h2>
+			<h2>Server Error: 403 (Forbidden)</h2>
 
 			<hr>
 
 			<h3>What does this mean?</h3>
 
 			<p>
-				We couldn't find the page you requested on our servers. We're really sorry
-				about that. It's our fault, not yours. We'll work hard to get this page
-				back online as soon as possible.
+                You either didn't provide any login credentials or the provided credentials were incorrect.
 			</p>
 		</div>
 	</div>

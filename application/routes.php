@@ -31,11 +31,17 @@
 |		});
 |
 */
+Route::get(     'authentication',       'authentication@index'  );
+Route::get(     'credential',           'credential@query'      );
+Route::get(     'credential/(:num)',    'credential@get'        );
+Route::post(    'credential',           'credential@create'     );
+Route::put(     'credential/(:num)',    'credential@update'     );
+Route::delete(  'credential/(:num)',    'credential@delete'     );
 
-Route::get('/', function()
-{
-	return View::make('home.index');
-});
+//Route::get('/', function()
+//{
+//	return View::make('home.index');
+//});
 
 /*
 |--------------------------------------------------------------------------
@@ -53,15 +59,19 @@ Route::get('/', function()
 |
 */
 
-Event::listen('404', function()
-{
-	return Response::error('404');
-});
-
-Event::listen('500', function($exception)
-{
-	return Response::error('500');
-});
+//Event::listen('404', function()
+//{
+//	return Response::error('404');
+//});
+//Event::listen('403', function()
+//{
+//	return Response::error('403');
+//});
+//
+//Event::listen('500', function($exception)
+//{
+//	return Response::error('500');
+//});
 
 /*
 |--------------------------------------------------------------------------
@@ -93,20 +103,38 @@ Event::listen('500', function($exception)
 
 Route::filter('before', function()
 {
-	// Do stuff before every request to your application...
+    //Fetch login credentials from the header
+    $email      = Request::header('custodes-email');
+    $email      = $email[0];
+
+    $password   = Request::header('custodes-password');
+    $password   = $password[0];
+
+    //Attempt to fetch a matching user
+    $user = User::where('hashedEmail', '=', $email)->where('hashedPassword', '=', $password)->first();
+
+    //Check the login credentials
+    if($user){
+
+        Auth::login($user->id);
+    }
+    else{
+        //Credentials are faulty, send a 403
+        return Response::error('403');
+    }
 });
 
-Route::filter('after', function($response)
-{
-	// Do stuff after every request to your application...
-});
-
-Route::filter('csrf', function()
-{
-	if (Request::forged()) return Response::error('500');
-});
-
-Route::filter('auth', function()
-{
-	if (Auth::guest()) return Redirect::to('login');
-});
+//Route::filter('after', function($response)
+//{
+//	// Do stuff after every request to your application...
+//});
+//
+//Route::filter('csrf', function()
+//{
+//	if (Request::forged()) return Response::error('500');
+//});
+//
+//Route::filter('auth', function()
+//{
+//	if (Auth::guest()) return Redirect::to('login');
+//});
